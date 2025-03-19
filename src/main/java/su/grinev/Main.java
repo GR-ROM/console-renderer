@@ -34,12 +34,12 @@ public class Main {
 
         char[][] buffer = new char[SCREEN_WIDTH][SCREEN_HEIGHT];
 
-        Vector3f pos = new Vector3f(-3, 0, 0);
-        Vector3f eye = new Vector3f(0, 0, 0);
+        Vector3f eye = new Vector3f(-3, 0, 0);
+        Vector3f pos = new Vector3f(0, 0, 0);
         Vector3f up = new Vector3f(0, 1, 0);
 
         Matrix4f model = new Matrix4f().identity();
-        Matrix4f view = new Matrix4f().lookAt(pos, eye, up);
+        Matrix4f view = new Matrix4f().lookAt(eye, pos, up);
         Matrix4f projection = MathUtils.createProjectionMatrix(SCREEN_WIDTH / 2, SCREEN_HEIGHT, 100, 0.1f, 80);
 
         List<Vector2d> screenProjected = new ArrayList<>();
