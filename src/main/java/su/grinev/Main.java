@@ -8,6 +8,7 @@ import org.joml.Vector4f;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Main {
 
@@ -47,7 +48,16 @@ public class Main {
         float rotationX = 0f;
         Vector4f translated = new Vector4f();
 
-        while (true) {
+        AtomicBoolean running = new AtomicBoolean(true);
+        Thread inputThread = new Thread(() -> {
+            try {
+                System.in.read();
+                running.set(false);
+            } catch (Exception ignored) {}
+        });
+        inputThread.start();
+
+        while (running.get()) {
             screenProjected.clear();
             MathUtils.updateTransformationMatrix(model, new Vector3f(0, 0, 0), rotationX, rotationX, 0, 1);
 
