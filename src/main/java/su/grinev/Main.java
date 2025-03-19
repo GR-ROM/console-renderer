@@ -16,6 +16,14 @@ public class Main {
     private static final int SCREEN_HEIGHT = 40;
 
     public static void main(String[] args) {
+        AtomicBoolean running = new AtomicBoolean(true);
+        Thread inputThread = new Thread(() -> {
+            try {
+                System.in.read();
+                running.set(false);
+            } catch (Exception ignored) {}
+        });
+
         List<Vector3f> mesh = List.of(
                 new Vector3f(-1, -1, -1),
                 new Vector3f( 1, -1, -1),
@@ -48,13 +56,6 @@ public class Main {
         float rotationX = 0f;
         Vector4f translated = new Vector4f();
 
-        AtomicBoolean running = new AtomicBoolean(true);
-        Thread inputThread = new Thread(() -> {
-            try {
-                System.in.read();
-                running.set(false);
-            } catch (Exception ignored) {}
-        });
         inputThread.start();
 
         while (running.get()) {
